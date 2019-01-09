@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D813E6D521E645AE00DB348D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813E6D421E645AE00DB348D /* main.swift */; };
+		D8B762CF21E64A440033F33B /* PeriodicRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B762CE21E64A440033F33B /* PeriodicRunner.swift */; };
+		D8B762D121E653010033F33B /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B762D021E653010033F33B /* ConsoleLogger.swift */; };
+		D8B762D421E68B860033F33B /* sleepProfiler.c in Sources */ = {isa = PBXBuildFile; fileRef = D8B762D321E68B860033F33B /* sleepProfiler.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,12 @@
 /* Begin PBXFileReference section */
 		D813E6D121E645AE00DB348D /* SleepProfiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SleepProfiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		D813E6D421E645AE00DB348D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D813E6DB21E645C100DB348D /* SleepProfiler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SleepProfiler-Bridging-Header.h"; sourceTree = "<group>"; };
+		D8B762CE21E64A440033F33B /* PeriodicRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicRunner.swift; sourceTree = "<group>"; };
+		D8B762D021E653010033F33B /* ConsoleLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
+		D8B762D221E68B860033F33B /* sleepProfiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sleepProfiler.h; path = SleepProfiler/sleepProfiler.h; sourceTree = "<group>"; };
+		D8B762D321E68B860033F33B /* sleepProfiler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sleepProfiler.c; path = SleepProfiler/sleepProfiler.c; sourceTree = "<group>"; };
+		D8B762D621E68DA10033F33B /* com.sevensignal.sleepprofiler.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.sevensignal.sleepprofiler.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +50,10 @@
 		D813E6C821E645AE00DB348D = {
 			isa = PBXGroup;
 			children = (
+				D8B762D621E68DA10033F33B /* com.sevensignal.sleepprofiler.plist */,
+				D8B762D221E68B860033F33B /* sleepProfiler.h */,
+				D8B762D321E68B860033F33B /* sleepProfiler.c */,
+				D813E6DB21E645C100DB348D /* SleepProfiler-Bridging-Header.h */,
 				D813E6D321E645AE00DB348D /* SleepProfiler */,
 				D813E6D221E645AE00DB348D /* Products */,
 			);
@@ -58,6 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				D813E6D421E645AE00DB348D /* main.swift */,
+				D8B762CE21E64A440033F33B /* PeriodicRunner.swift */,
+				D8B762D021E653010033F33B /* ConsoleLogger.swift */,
 			);
 			path = SleepProfiler;
 			sourceTree = "<group>";
@@ -94,6 +109,7 @@
 				TargetAttributes = {
 					D813E6D021E645AE00DB348D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -119,7 +135,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B762D421E68B860033F33B /* sleepProfiler.c in Sources */,
 				D813E6D521E645AE00DB348D /* main.swift in Sources */,
+				D8B762CF21E64A440033F33B /* PeriodicRunner.swift in Sources */,
+				D8B762D121E653010033F33B /* ConsoleLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,9 +263,17 @@
 		D813E6D921E645AE00DB348D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PK2NBHJ75P;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SleepProfiler-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -254,9 +281,16 @@
 		D813E6DA21E645AE00DB348D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PK2NBHJ75P;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SleepProfiler-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
