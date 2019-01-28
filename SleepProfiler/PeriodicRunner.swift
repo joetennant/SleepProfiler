@@ -11,19 +11,25 @@ class PeriodicRunner {
     }
     @objc func doSleepProfiles() {
         doSleepProfile1()
-        doSleepProfile2()
+        doSleepProfile3()
     }
     
     func doSleepProfile1() {
-        printMessage("starting iteration (sleep 1)")
-        let iterationCount = profileSleep1()
-        printMessage("iteration count (sleep 1): \(iterationCount)")
+        printMessage("starting iteration (usleep)")
+        let iterationCount = profileSleep_usleep()
+        printMessage("iteration count (usleep): \(iterationCount)")
     }
     
     func doSleepProfile2() {
-        printMessage("starting iteration (sleep 2)")
-        let iterationCount = profileSleep2()
-        printMessage("iteration count (sleep 2): \(iterationCount)")
+        printMessage("starting iteration (select)")
+        let iterationCount = profileSleep_select()
+        printMessage("iteration count (select): \(iterationCount)")
+    }
+    
+    func doSleepProfile3() {
+        printMessage("starting iteration (hard loop)")
+        let iterationCount = profileSleep_hardLoop()
+        printMessage("iteration count (hard loop): \(iterationCount)")
     }
     
 }
