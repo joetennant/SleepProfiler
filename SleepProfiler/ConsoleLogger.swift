@@ -7,8 +7,10 @@ struct Log {
 
 func printMessage(_ message: Any) {
     if let messageString = message as? String {
-        os_log("%{public}s", log: Log.general, type: .default, messageString)
+        print(messageString)
+//        print("%{public}s", log: Log.general, type: .default, messageString)
     } else {
-        os_log("%{public}@", log: Log.general, type: .default, message as! NSObject)
+        print(message)
+//        print("%{public}@", log: Log.general, type: .default, message as! NSObject)
     }
 }
