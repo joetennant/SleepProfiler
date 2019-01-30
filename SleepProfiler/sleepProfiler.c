@@ -66,21 +66,26 @@ static inline double getTimestampInMicroseconds(struct timeval tv){
     return (tv.tv_sec * US_IN_SECONDS) + (tv.tv_usec);
 }
 
-int timeLessThanMicroseconds(struct timeval startTime, double us) {
-    struct timeval endTime;
-    gettimeofday(&endTime, NULL);
-    double diffTimeInMicroseconds = (getTimestampInMicroseconds(endTime) - getTimestampInMicroseconds(startTime));
-    return (diffTimeInMicroseconds <= us);
+int hasTimeIntervalElapsed(struct timeval startTime, double desiredIntervalInMicrosecs) {
+    struct timeval currentTime;
+    gettimeofday(&currentTime, NULL);
+    double elapsedIntervalInMicroseconds = (getTimestampInMicroseconds(currentTime) - getTimestampInMicroseconds(startTime));
+    return (elapsedIntervalInMicroseconds > desiredIntervalInMicrosecs);
 }
 
 const double SLEEP_IN_MICROSECONDS = 100;
-void hardLoopMicroseconds(unsigned int millis) {
+const double SLEEP_IN_NANOSECONDS = SLEEP_IN_MICROSECONDS * 1000.0;
+
+void usleepWorkAround(unsigned int sleepIntervalInMicrosecs) {
     
     struct timeval startTime;
     gettimeofday(&startTime, NULL);
+    struct timespec subSleepInterval = {0, SLEEP_IN_NANOSECONDS};
+    struct timespec subSleepRemaining;
     
-    while (timeLessThanMicroseconds(startTime, millis)) {
-        usleep(SLEEP_IN_MICROSECONDS);
+    while (!hasTimeIntervalElapsed(startTime, sleepIntervalInMicrosecs)) {
+//        usleep(SLEEP_IN_MICROSECONDS);
+        nanosleep(&subSleepInterval, &subSleepRemaining);
     }
 }
 
@@ -91,7 +96,7 @@ unsigned long profileSleep_hardLoop() {
     gettimeofday(&startTime, NULL);
     
     while (timeLessThanSeconds(startTime, LOOP_WHILE_SECONDS)) {
-        hardLoopMicroseconds(SLEEP_WAIT_TIME_US);
+        usleepWorkAround(SLEEP_WAIT_TIME_US);
         iterations3++;
     }
     return iterations3;
